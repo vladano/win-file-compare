@@ -12,6 +12,7 @@
 <p align="center">
   <a href="https://github.com/vladano/win-file-compare/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/vladano/win-file-compare/ci.yml?branch=main&label=CI" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License: MIT"></a>
+  <a href="https://github.com/vladano/win-file-compare/releases/latest"><img src="https://img.shields.io/github/v/release/vladano/win-file-compare?label=release" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-blue" alt="Platform: Windows 10 and 11">
 </p>
 
@@ -20,17 +21,42 @@
 - Runs standalone or from the Explorer right-click menu
 - Small, fast and offline
 
+## Why this one?
+
+| | File Compare | Beyond Compare | WinMerge |
+|---|---|---|---|
+| Price | Free | Paid (trial available) | Free |
+| Open source | Yes (MIT) | No | Yes (GPL) |
+| Works offline | Yes | Yes | Yes |
+| Account required | No | No | No |
+
+File Compare is a small Windows app for comparing and merging text files, folders, binary files and images. It is free, open source and needs no account or license key. Comparison based on public information about each app at the time of writing. Check each project for current details.
+
+## Download and install
+
+Download `FileCompare-Setup-<version>-x64.exe` from the [Releases page](https://github.com/vladano/win-file-compare/releases/latest) and run it. It installs for your user only, with no administrator rights, adds a Start menu entry and can add the Explorer right-click menu. Uninstall it from Settings > Apps. Your settings are kept.
+
+Each release includes a `SHA256SUMS.txt` file so you can verify your download.
+
+### Verify your download
+
+Release files are signed with Sigstore through GitHub artifact attestations. This proves a file was built from this repository by its GitHub Actions workflow, and that it was not changed afterwards. Install the [GitHub CLI](https://cli.github.com/) and run:
+
+```powershell
+gh attestation verify "FileCompare-Setup-<version>-x64.exe" --repo vladano/win-file-compare
+```
+
+Use the name of the file you downloaded. This is separate from Windows code signing. The installer is not code signed yet, so SmartScreen may show "Windows protected your PC": click "More info" > "Run anyway".
+
 ## Status
 
 Early development. Text compare (with editing, copying differences and saving), folder, hex and image compare work today, in a tabbed window with a Home tab and saved sessions. The classic Explorer right-click menu can be added from Tools > Explorer integration. See [CHANGELOG.md](CHANGELOG.md).
 
 **New to File Compare?** Read the [User Manual](docs/USER-MANUAL.md). It covers installing the app, every compare view, the Explorer right-click menu, sessions, shortcuts and troubleshooting.
 
-## Install and use
+## Use
 
-There is no installer. File Compare is one program, `FileCompare.exe`.
-
-1. **Get the exe.** Build the standalone `publish\FileCompare.exe` (see [Build](#build)) or run from source (see [Quick start](#quick-start-from-source)). Copy the exe to a permanent folder, for example `C:\Tools\FileCompare\`.
+1. **Install it** (see [Download and install](#download-and-install)), or build the standalone `publish\FileCompare.exe` (see [Build](#build)) or run from source (see [Quick start](#quick-start-from-source)).
 2. **Start it.** Double-click it for the Home tab, or run `FileCompare.exe "left" "right"` to compare two files or two folders. The right view (text, folder, hex or image) is chosen for you.
 3. **Add the right-click menu (optional).** Choose **Tools > Explorer integration... > Install**, or run `FileCompare.exe --register-shell`. No administrator rights are needed. Only your user account is changed.
 
@@ -101,14 +127,6 @@ Available now:
 
 Planned:
 - Windows 11 top-level context menu entry
-
-## Install
-
-Run `FileCompare-Setup-<version>-x64.exe` (build it with `scripts\build-installer.ps1`, see [Building](docs/BUILDING.md#installer)).
-It installs for your user only into `%LocalAppData%\Programs\File Compare`, with no administrator rights, adds a Start menu entry,
-and can add the Explorer right-click menu. Uninstall it from Settings > Apps. Your settings are kept.
-
-The installer is not code signed yet, so SmartScreen may show "Windows protected your PC": click "More info" > "Run anyway".
 
 ## Quick start (from source)
 
@@ -220,10 +238,16 @@ docs/                   user manual and build instructions
 - [Plan](PLAN.md): architecture and roadmap.
 - [Changelog](CHANGELOG.md).
 
+## Report a bug or request a feature
+
+Found a bug or want a feature? [Open an issue](https://github.com/vladano/win-file-compare/issues/new/choose) and pick the bug report or feature request template. Include the text from **About > Copy details**.
+Have a question or an open-ended idea? Start a thread in [Discussions](https://github.com/vladano/win-file-compare/discussions).
+Security problem? Do not post it publicly. Use the [private vulnerability report](https://github.com/vladano/win-file-compare/security/advisories/new). See also [Contributing](CONTRIBUTING.md) and the [Security policy](SECURITY.md).
+
 ## License
 
 MIT License. Free to use, copy, modify and distribute for personal and commercial purposes. Copyright (c) 2026 [vladano](https://github.com/vladano).
 
-The copyright notice, the reference to the project home at <https://github.com/vladano/win-file-compare> and the permission notice in the [LICENSE](LICENSE) file must be kept in all copies or substantial portions of the software.
+The copyright notice and the permission notice in the [LICENSE](LICENSE) file must be kept in all copies or substantial portions of the software.
 
 This app was created using the [AWS Kiro](https://kiro.dev) IDE environment.

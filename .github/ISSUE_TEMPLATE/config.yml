@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question or share an idea
+    url: https://github.com/vladano/win-file-compare/discussions
+    about: For questions and open-ended ideas. Use Issues for bugs and concrete feature requests.
+  - name: Report a security vulnerability
+    url: https://github.com/vladano/win-file-compare/security/advisories/new
+    about: Please report security problems privately, not as a public issue.

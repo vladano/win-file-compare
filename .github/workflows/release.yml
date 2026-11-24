@@ -1,0 +1,71 @@
+# Builds the installer and publishes a GitHub Release.
+# Trigger manually (Actions > Release > Run workflow) to only build and download the artifact,
+# or push a tag like v1.0.0 (it must match <Version> in FileCompare.App.csproj) to also create the release.
+# The release gets the installer, its .sha256 file, a SHA256SUMS.txt, and Sigstore build provenance
+# attestations (users check them with `gh attestation verify`).
+# The files are not code signed.
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      id-token: write     # lets the job request a short-lived Sigstore signing certificate
+      attestations: write # lets the job store the signed build provenance
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+      - name: Check tag matches the project version
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        run: |
+          $version = ([xml](Get-Content src/FileCompare.App/FileCompare.App.csproj)).Project.PropertyGroup |
+            ForEach-Object { $_.Version } | Where-Object { $_ } | Select-Object -First 1
+          if ("v$version" -ne $env:GITHUB_REF_NAME) {
+            throw "Tag $env:GITHUB_REF_NAME does not match project version v$version"
+          }
+      - run: dotnet test FileCompare.sln -c Release
+      - name: Install Inno Setup
+        run: choco install innosetup --yes --no-progress
+      - name: Build the installer
+        shell: pwsh
+        run: ./scripts/build-installer.ps1 -SkipLicenseDownload
+      - name: Create checksums
+        shell: pwsh
+        working-directory: dist
+        run: |
+          Get-ChildItem -Filter 'FileCompare-Setup-*-x64.exe' |
+            ForEach-Object { '{0}  {1}' -f (Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant(), $_.Name } |
+            Set-Content SHA256SUMS.txt -Encoding ascii
+          Get-Content SHA256SUMS.txt
+      - uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: 'dist/FileCompare-Setup-*-x64.exe'
+      - uses: actions/upload-artifact@v7
+        with:
+          name: file-compare-installer
+          path: |
+            dist/FileCompare-Setup-*-x64.exe
+            dist/FileCompare-Setup-*-x64.exe.sha256
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+      - uses: softprops/action-gh-release@v3
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          files: |
+            dist/FileCompare-Setup-*-x64.exe
+            dist/FileCompare-Setup-*-x64.exe.sha256
+            dist/SHA256SUMS.txt
+          generate_release_notes: true
+          fail_on_unmatched_files: true

@@ -54,3 +54,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - A file that is written to while folder compare reads it is reported as an error ("changed while it was compared"), never as the same.
 - With Edit off, the text panes could still be changed by dragging text out of them (or into them). They are now read-only until Edit is turned on.
 - Every running copy now holds the `FileCompare.Running` mutex, also one started with `FILECOMPARE_DATA_DIR`, so Setup always asks to close it first.
+
+### Changed
+- LICENSE is now the standard MIT text (the extra project home condition was removed), so GitHub detects it.
+- Repository: issue templates, security policy, contributing guide, Dependabot, and a Release workflow that builds the installer and publishes it with checksums and build provenance attestations on a `v*` tag.
