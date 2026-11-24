@@ -21,6 +21,10 @@
 - Runs standalone or from the Explorer right-click menu
 - Small, fast and offline
 
+<p align="center">
+  <img src="docs/images/win-file-compare-social-preview.jpg" alt="File Compare: compare files, folders, hex and images" width="800">
+</p>
+
 ## Why this one?
 
 | | File Compare | Beyond Compare | WinMerge |
