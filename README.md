@@ -10,6 +10,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/vladano/win-file-compare/releases/latest">
+    <img src="https://img.shields.io/badge/%E2%AC%87%20Download%20for%20Windows%2010%20%7C%2011-2563eb?style=for-the-badge" alt="Download the latest release">
+  </a>
+</p>
+
+<p align="center">
   <a href="https://github.com/vladano/win-file-compare/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/vladano/win-file-compare/ci.yml?branch=main&label=CI" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License: MIT"></a>
   <a href="https://github.com/vladano/win-file-compare/releases/latest"><img src="https://img.shields.io/github/v/release/vladano/win-file-compare?label=release" alt="Latest release"></a>
