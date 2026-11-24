@@ -69,7 +69,8 @@ Keep the `AppId` in `FileCompare.iss` unchanged, or Windows treats a new version
 2. `dotnet test FileCompare.sln` passes.
 3. Build the installer and run the UI tests with it: `scripts/run-ui-tests.ps1 -Installer` (it calls `scripts/build-installer.ps1`; see [TESTING.md](TESTING.md#automated-checks)). Uninstall File Compare first, or the installer tests are skipped.
 4. Run the manual checklist in [TESTING.md](TESTING.md) with that installer (on Windows 10 and Windows 11 when possible) and fill in its results summary.
-5. Sign the files if you have a certificate (see below), then publish the installer and its `.sha256` file.
+5. Merge the version and changelog change into `main` through a pull request (`main` is protected), then tag it: `git tag vX.Y.Z; git push origin vX.Y.Z`. The tag must match `<Version>`. The Release workflow (`.github/workflows/release.yml`) tests, builds the installer, and publishes the GitHub Release with the installer, `.sha256`, `SHA256SUMS.txt` and build provenance attestations.
+6. Signing (optional, see below) is not part of the workflow yet. If you have a certificate, sign the files and replace the release assets by hand.
 
 ## Code signing (optional)
 
