@@ -1,0 +1,361 @@
+<!--
+  Toolbar icons. Each one is a 16x16 vector DrawingImage, so it stays sharp at any DPI.
+  Use them as: Tag="{StaticResource Icon.Reload}" on a button that uses Toolbar.xaml styles.
+  To add an icon: copy an entry, keep the transparent 16x16 first drawing, and name it Icon.<Name>.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Palette -->
+    <SolidColorBrush x:Key="Icon.Orange" Color="#F59E0B"/>
+    <SolidColorBrush x:Key="Icon.Blue" Color="#2563EB"/>
+    <SolidColorBrush x:Key="Icon.Red" Color="#DC2626"/>
+    <SolidColorBrush x:Key="Icon.Green" Color="#16A34A"/>
+    <SolidColorBrush x:Key="Icon.Gray" Color="#64748B"/>
+    <SolidColorBrush x:Key="Icon.Dark" Color="#7A8BA3"/>
+    <SolidColorBrush x:Key="Icon.Light" Color="#E2E8F0"/>
+
+    <Pen x:Key="Icon.Outline" Brush="#7A8BA3" Thickness="1" LineJoin="Round"/>
+    <Pen x:Key="Icon.StrokeGray" Brush="#64748B" Thickness="1.8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round"/>
+    <Pen x:Key="Icon.StrokeDark" Brush="#7A8BA3" Thickness="1.6" StartLineCap="Round" EndLineCap="Round" LineJoin="Round"/>
+    <Pen x:Key="Icon.StrokeGreen" Brush="#16A34A" Thickness="2" StartLineCap="Round" EndLineCap="Round"/>
+
+    <!-- Home: house -->
+    <DrawingImage x:Key="Icon.Home">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M8,1.5 L1.5,7.5 H3.5 V14 H6.5 V10 H9.5 V14 H12.5 V7.5 H14.5 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Sessions: stacked records -->
+    <DrawingImage x:Key="Icon.Sessions">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M2,2 H14 V5 H2 Z M2,6.5 H14 V9.5 H2 Z M2,11 H14 V14 H2 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- All: asterisk -->
+    <DrawingImage x:Key="Icon.All">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGray}"
+                                 Geometry="M8,2.5 V13.5 M3.2,5.2 L12.8,10.8 M3.2,10.8 L12.8,5.2"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Diffs: only the differing lines -->
+    <DrawingImage x:Key="Icon.Diffs">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Red}" Geometry="M2,2.5 H14 V5.5 H2 Z M2,10.5 H14 V13.5 H2 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeDark}" Geometry="M5,8 H11"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Same: equals sign -->
+    <DrawingImage x:Key="Icon.Same">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Gray}" Geometry="M2,4.5 H14 V7 H2 Z M2,9 H14 V11.5 H2 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Context: a difference with a few unchanged lines around it -->
+    <DrawingImage x:Key="Icon.Context">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Gray}"
+                                 Geometry="M2,2 H14 V3.5 H2 Z M2,4.6 H14 V6.1 H2 Z M2,9.9 H14 V11.4 H2 Z M2,12.5 H14 V14 H2 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Red}" Geometry="M2,7.2 H14 V8.8 H2 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Minor: approximately equal -->
+    <DrawingImage x:Key="Icon.Minor">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGray}"
+                                 Geometry="M2,5.5 C4,2.5 6,2.5 8,5.5 S12,8.5 14,5.5 M2,11.5 C4,8.5 6,8.5 8,11.5 S12,14.5 14,11.5"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Rules: filter funnel -->
+    <DrawingImage x:Key="Icon.Rules">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Blue}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M2,2.5 H14 L9.5,8 V13.5 L6.5,12 V8 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Format: page with text lines -->
+    <DrawingImage x:Key="Icon.Format">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="White" Pen="{StaticResource Icon.Outline}" Geometry="M3,1.5 H10 L13,4.5 V14.5 H3 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGray}" Geometry="M5.5,7 H10.5 M5.5,9.5 H10.5 M5.5,12 H8.5"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Blue}" Geometry="M5.5,3.2 H8.5 V5 H5.5 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Copy: two pages -->
+    <DrawingImage x:Key="Icon.Copy">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Light}" Pen="{StaticResource Icon.Outline}" Geometry="M2.5,2 H9 V11 H2.5 Z"/>
+                <GeometryDrawing Brush="White" Pen="{StaticResource Icon.Outline}" Geometry="M6.5,5 H13.5 V14 H6.5 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGray}" Geometry="M8.5,8 H11.5 M8.5,10.5 H11.5"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Edit: pencil -->
+    <DrawingImage x:Key="Icon.Edit">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M2,14 L2.8,10.6 L10.6,2.8 L13.2,5.4 L5.4,13.2 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.Outline}" Geometry="M9,4.4 L11.6,7"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Next section: arrow down -->
+    <DrawingImage x:Key="Icon.NextSection">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M6,2 H10 V8 H13 L8,14 L3,8 H6 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Previous section: arrow up -->
+    <DrawingImage x:Key="Icon.PrevSection">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M6,14 H10 V8 H13 L8,2 L3,8 H6 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Swap: two opposite arrows -->
+    <DrawingImage x:Key="Icon.Swap">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Blue}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M2,3.5 H9 V1.5 L14,4.5 L9,7.5 V5.5 H2 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M14,10.5 H7 V8.5 L2,11.5 L7,14.5 V12.5 H14 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Reload: circular arrow -->
+    <DrawingImage x:Key="Icon.Reload">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGreen}" Geometry="M13,8 A5,5 0 1 1 10.5,3.67"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Green}" Geometry="M9.4,5.57 L11.6,1.77 L13.1,5.17 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Expand all: box with plus -->
+    <DrawingImage x:Key="Icon.Expand">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.Outline}" Geometry="M2.5,2.5 H13.5 V13.5 H2.5 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGray}" Geometry="M8,5 V11 M5,8 H11"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Collapse all: box with minus -->
+    <DrawingImage x:Key="Icon.Collapse">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.Outline}" Geometry="M2.5,2.5 H13.5 V13.5 H2.5 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGray}" Geometry="M5,8 H11"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Open: folder -->
+    <DrawingImage x:Key="Icon.Open">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M1.5,3.5 H6 L7.5,5 H14.5 V13 H1.5 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Copy to the right: arrow right -->
+    <DrawingImage x:Key="Icon.CopyRight">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Blue}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M2,6 H9 V3 L14.5,8 L9,13 V10 H2 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Copy to the left: arrow left -->
+    <DrawingImage x:Key="Icon.CopyLeft">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M14,6 H7 V3 L1.5,8 L7,13 V10 H14 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Delete: trash can -->
+    <DrawingImage x:Key="Icon.Delete">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Red}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M3.5,5 H12.5 L11.8,14.5 H4.2 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeDark}" Geometry="M2.5,3.8 H13.5 M6.5,3.8 V2.2 H9.5 V3.8"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Update: arrow down into a tray -->
+    <DrawingImage x:Key="Icon.Update">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Green}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M6.5,1.5 H9.5 V6 H12 L8,10.5 L4,6 H6.5 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeDark}" Geometry="M2.5,13 H13.5"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Left only: left half of a circle -->
+    <DrawingImage x:Key="Icon.LeftOnly">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Blue}" Geometry="M8,2 A6,6 0 0 0 8,14 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.Outline}" Geometry="M8,2 A6,6 0 1 0 8,14 A6,6 0 1 0 8,2 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Right only: right half of a circle -->
+    <DrawingImage x:Key="Icon.RightOnly">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Geometry="M8,2 A6,6 0 0 1 8,14 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.Outline}" Geometry="M8,2 A6,6 0 1 0 8,14 A6,6 0 1 0 8,2 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Side by side: two pictures -->
+    <DrawingImage x:Key="Icon.SideBySide">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Light}" Pen="{StaticResource Icon.Outline}" Geometry="M1.5,3 H7.2 V13 H1.5 Z M8.8,3 H14.5 V13 H8.8 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Green}" Geometry="M2.5,12 L4.3,8.5 L6.2,12 Z M9.8,12 L11.6,8.5 L13.5,12 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}" Geometry="M3,5.8 A1,1 0 1 0 5,5.8 A1,1 0 1 0 3,5.8 Z M10.3,5.8 A1,1 0 1 0 12.3,5.8 A1,1 0 1 0 10.3,5.8 Z"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Fit: arrows pointing into a frame -->
+    <DrawingImage x:Key="Icon.Fit">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.Outline}" Geometry="M2.5,2.5 H13.5 V13.5 H2.5 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGray}"
+                                 Geometry="M5,5 L7,7 M11,5 L9,7 M5,11 L7,9 M11,11 L9,9 M5,7 V5 H7 M9,5 H11 V7 M5,9 V11 H7 M9,11 H11 V9"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Theme: paint palette -->
+    <DrawingImage x:Key="Icon.Theme">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Light}" Pen="{StaticResource Icon.Outline}"
+                                 Geometry="M8,2 C4.4,2 2,4.9 2,8 C2,11.4 4.6,14 8,14 C9.6,14 9.8,12.6 9.2,11.6 C8.6,10.6 9.4,9.6 10.8,9.6 H12.4 C13.6,9.6 14,8.6 14,8 C14,4.6 11.4,2 8,2 Z"/>
+                <GeometryDrawing Brush="{StaticResource Icon.Red}">
+                    <GeometryDrawing.Geometry><EllipseGeometry Center="5.2,6.8" RadiusX="1.3" RadiusY="1.3"/></GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="{StaticResource Icon.Blue}">
+                    <GeometryDrawing.Geometry><EllipseGeometry Center="8.2,4.6" RadiusX="1.3" RadiusY="1.3"/></GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="{StaticResource Icon.Green}">
+                    <GeometryDrawing.Geometry><EllipseGeometry Center="11.2,5.8" RadiusX="1.3" RadiusY="1.3"/></GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="{StaticResource Icon.Orange}">
+                    <GeometryDrawing.Geometry><EllipseGeometry Center="5.6,10.4" RadiusX="1.3" RadiusY="1.3"/></GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Ignore whitespace: open-box space symbol -->
+    <DrawingImage x:Key="Icon.IgnoreWhitespace">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeDark}" Geometry="M2.5,5.5 V11 H13.5 V5.5"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Ignore case: Aa -->
+    <DrawingImage x:Key="Icon.IgnoreCase">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M0,0 H16 V16 H0 Z"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeDark}" Geometry="M1.5,13 L5,3 L8.5,13 M2.8,9.5 H7.2"/>
+                <GeometryDrawing Pen="{StaticResource Icon.StrokeGray}" Geometry="M14,9.5 V13 M14,11.2 A2,2 0 1 0 10,11.2 A2,2 0 1 0 14,11.2"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

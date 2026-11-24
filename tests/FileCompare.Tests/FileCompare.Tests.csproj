@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Pure C# file from the WPF app, linked so tests don't need a Windows-only project reference. -->
+    <Compile Include="..\..\src\FileCompare.App\CommandLineArgs.cs" Link="Linked\CommandLineArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FileCompare.Core\FileCompare.Core.csproj" />
+    <!-- Build-order only: `dotnet test` then also compiles the WPF app, so UI compile errors fail the test run.
+         The app is Windows-only (net9.0-windows), so its assembly is not referenced. -->
+    <ProjectReference Include="..\..\src\FileCompare.App\FileCompare.App.csproj"
+                      ReferenceOutputAssembly="false" SkipGetTargetFrameworkProperties="true" />
+  </ItemGroup>
+
+</Project>

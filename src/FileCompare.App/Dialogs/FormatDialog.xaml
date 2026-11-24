@@ -1,0 +1,31 @@
+<Window x:Class="FileCompare.App.Dialogs.FormatDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Format" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{DynamicResource App.Background}" Foreground="{DynamicResource App.Text}">
+    <StackPanel Margin="18" MinWidth="380">
+        <TextBlock Text="File encoding" FontWeight="SemiBold"/>
+        <TextBlock Text="Left file" Margin="0,10,0,0"/>
+        <ComboBox x:Name="LeftEncodingBox" DisplayMemberPath="Label" SelectedValuePath="Value" Margin="0,4,0,0"/>
+        <TextBlock Text="Right file" Margin="0,10,0,0"/>
+        <ComboBox x:Name="RightEncodingBox" DisplayMemberPath="Label" SelectedValuePath="Value" Margin="0,4,0,0"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="Changing the encoding reloads the files from disk. Saving keeps the encoding shown in the file info bar."/>
+
+        <TextBlock Text="Display" FontWeight="SemiBold" Margin="0,18,0,0"/>
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <TextBlock Text="Tab size" VerticalAlignment="Center"/>
+            <ComboBox x:Name="TabSizeBox" Width="70" Margin="10,0,0,0"/>
+        </StackPanel>
+        <CheckBox x:Name="SyntaxBox" Content="Syntax highlighting (by file extension)" Margin="0,10,0,0"/>
+        <CheckBox x:Name="InlineBox" Content="Mark the characters that changed inside a line" Margin="0,6,0,0"/>
+        <CheckBox x:Name="WhitespaceBox" Content="Show spaces and tabs" Margin="0,6,0,0"/>
+        <CheckBox x:Name="EndOfLineBox" Content="Show line breaks (always drawn as \n)" Margin="0,6,0,0"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="OK" Width="84" IsDefault="True" Click="OnOk"/>
+            <Button Content="Cancel" Width="84" Margin="8,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,31 @@
+<Window x:Class="FileCompare.App.Dialogs.RulesDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Rules" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{DynamicResource App.Background}" Foreground="{DynamicResource App.Text}">
+    <StackPanel Margin="18" MinWidth="380">
+        <TextBlock Text="Treat these differences as unimportant" FontWeight="SemiBold"/>
+        <CheckBox x:Name="LeadingBox" Content="Leading whitespace (indentation)" Margin="0,10,0,0"/>
+        <CheckBox x:Name="EmbeddedBox" Content="Embedded whitespace (amount of space between words)" Margin="0,6,0,0"/>
+        <CheckBox x:Name="TrailingBox" Content="Trailing whitespace" Margin="0,6,0,0"/>
+        <CheckBox x:Name="CaseBox" Content="Character case" Margin="0,6,0,0"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="Lines that differ only in these ways are not counted as differences. Use the Minor button to see them."/>
+
+        <TextBlock Text="Alignment" FontWeight="SemiBold" Margin="0,18,0,0"/>
+        <ComboBox x:Name="AlgorithmBox" DisplayMemberPath="Label" SelectedValuePath="Value" Margin="0,8,0,0"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="Patience matches lines that appear once in both files first. It often reads better for source code where blocks moved."/>
+
+        <TextBlock Text="Lines of context around each difference" FontWeight="SemiBold" Margin="0,18,0,0"/>
+        <ComboBox x:Name="ContextBox" Width="90" HorizontalAlignment="Left" Margin="0,8,0,0"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="Used by the Context view."/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="OK" Width="84" IsDefault="True" Click="OnOk"/>
+            <Button Content="Cancel" Width="84" Margin="8,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

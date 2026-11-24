@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    UI tests that drive the real app (and File Explorer) with Windows UI Automation (FlaUI).
+    They move the mouse, so they only run when FILECOMPARE_UI_TESTS=1 is set; run them with scripts\run-ui-tests.ps1.
+    Otherwise every test reports as skipped, so "dotnet test FileCompare.sln" and CI are not affected.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FlaUI.UIA3" Version="5.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <!-- WPF projects leave System.IO out of the implicit usings; nothing here uses System.Windows.Shapes.Path. -->
+    <Using Include="System.IO" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FileCompare.Core\FileCompare.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,152 @@
+<tabs:ComparePage x:Class="FileCompare.App.HomePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:tabs="clr-namespace:FileCompare.App.Tabs">
+    <tabs:ComparePage.Resources>
+        <!-- A row in the session and recent lists: the whole row is one flat button. -->
+        <Style x:Key="EntryButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource App.Control}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource App.Control}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Heading" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="Secondary" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource App.TextSecondary}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <DataTemplate x:Key="EntryTemplate">
+            <Grid Margin="0,1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource EntryButton}" Click="OnOpenEntry" ToolTip="{Binding Paths}"
+                        AutomationProperties.Name="{Binding Title}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="{DynamicResource App.Control}" CornerRadius="3" Padding="6,1" Margin="0,0,10,0"
+                                HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock Text="{Binding Kind}" FontSize="11" Foreground="{DynamicResource App.TextSecondary}"/>
+                        </Border>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Text="{Binding Paths}" FontSize="11" TextTrimming="CharacterEllipsis"
+                                       Foreground="{DynamicResource App.TextSecondary}"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="2" Text="{Binding When}" FontSize="11" Margin="12,0,0,0" VerticalAlignment="Top"
+                                   Foreground="{DynamicResource App.TextSecondary}"/>
+                    </Grid>
+                </Button>
+                <Button Grid.Column="1" Content="Remove" Margin="8,0,0,0" Padding="10,2" VerticalAlignment="Center"
+                        Visibility="{Binding RemoveVisibility}" Click="OnRemoveSession" ToolTip="Remove this saved session"/>
+            </Grid>
+        </DataTemplate>
+    </tabs:ComparePage.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="{DynamicResource App.Surface}">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New tab" InputGestureText="Ctrl+T" Click="OnNewTabClick"/>
+                <Separator/>
+                <MenuItem Header="_Close tab" InputGestureText="Ctrl+W" Click="OnCloseTabClick"/>
+                <MenuItem Header="E_xit" Click="OnExitClick"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem x:Name="ThemeMenu" Header="_Theme"/>
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Explorer integration..." Click="OnShellIntegration"/>
+            </MenuItem>
+            <MenuItem Header="_About" Click="OnAbout"
+                      ToolTip="About File Compare: version, source code, changelog, license"/>
+        </Menu>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="36,26,36,30" MaxWidth="960" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="pack://application:,,,/FileCompare;component/icon.ico" Width="48" Height="48"
+                           RenderOptions.BitmapScalingMode="HighQuality" AutomationProperties.Name="File Compare icon"/>
+                    <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="File Compare" FontSize="24" FontWeight="SemiBold"/>
+                        <TextBlock Style="{StaticResource Secondary}"
+                                   Text="Compare text files, folders, images and binary files. Drop two items anywhere on this page to start."/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- New comparison -->
+                <TextBlock Text="New comparison" Style="{StaticResource Heading}" Margin="0,28,0,8"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Left" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBox x:Name="LeftPath" Grid.Column="1" VerticalContentAlignment="Center" KeyDown="OnPathKeyDown"
+                             Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"
+                             ToolTip="A file or folder. Type a path, browse, or drop it here." AutomationProperties.Name="Left path"/>
+                    <Button Grid.Column="2" Content="File..." Margin="6,0,0,0" Padding="10,3" Click="OnBrowseLeftFile"/>
+                    <Button Grid.Column="3" Content="Folder..." Margin="6,0,0,0" Padding="10,3" Click="OnBrowseLeftFolder"/>
+
+                    <TextBlock Grid.Row="1" Text="Right" VerticalAlignment="Center" Margin="0,6,10,0"/>
+                    <TextBox x:Name="RightPath" Grid.Row="1" Grid.Column="1" Margin="0,6,0,0" VerticalContentAlignment="Center" KeyDown="OnPathKeyDown"
+                             Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"
+                             ToolTip="A file or folder. Type a path, browse, or drop it here." AutomationProperties.Name="Right path"/>
+                    <Button Grid.Row="1" Grid.Column="2" Content="File..." Margin="6,6,0,0" Padding="10,3" Click="OnBrowseRightFile"/>
+                    <Button Grid.Row="1" Grid.Column="3" Content="Folder..." Margin="6,6,0,0" Padding="10,3" Click="OnBrowseRightFolder"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Content="Compare" MinWidth="110" Padding="12,4" Click="OnCompareClick"
+                            ToolTip="Opens the right view: text, folder, image or hex"/>
+                    <TextBlock x:Name="StatusText" Margin="12,0,0,0" VerticalAlignment="Center" Style="{StaticResource Secondary}"/>
+                </StackPanel>
+
+                <!-- Saved sessions -->
+                <TextBlock Text="Saved sessions" Style="{StaticResource Heading}" Margin="0,30,0,6"/>
+                <TextBlock x:Name="NoSessionsText" Style="{StaticResource Secondary}"
+                           Text="None yet. In a comparison, use Sessions > Save as session to keep it here."/>
+                <ItemsControl x:Name="SessionsList" ItemTemplate="{StaticResource EntryTemplate}" Focusable="False"/>
+
+                <!-- Recent -->
+                <DockPanel Margin="0,30,0,6">
+                    <Button x:Name="ClearRecentButton" DockPanel.Dock="Right" Content="Clear list" Padding="10,2"
+                            Click="OnClearRecent" ToolTip="Forget the recent comparisons (the files are not touched)"/>
+                    <TextBlock Text="Recent" Style="{StaticResource Heading}"/>
+                </DockPanel>
+                <TextBlock x:Name="NoRecentText" Style="{StaticResource Secondary}" Text="Comparisons you open appear here."/>
+                <ItemsControl x:Name="RecentList" ItemTemplate="{StaticResource EntryTemplate}" Focusable="False"/>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</tabs:ComparePage>

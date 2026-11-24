@@ -1,0 +1,114 @@
+<tabs:PathComparePage x:Class="FileCompare.App.HexComparePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:tabs="clr-namespace:FileCompare.App.Tabs"
+        xmlns:bin="clr-namespace:FileCompare.App.Binary"
+        PreviewKeyDown="OnPageKeyDown">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="{DynamicResource App.Surface}">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New tab" InputGestureText="Ctrl+T" Click="OnNewTabClick"/>
+                <MenuItem Header="_Home" Click="OnHomeClick"/>
+                <MenuItem Header="Recen_t" SubmenuOpened="OnRecentMenuOpened">
+                    <MenuItem Header="(none yet)" IsEnabled="False"/>
+                </MenuItem>
+                <MenuItem Header="Save as se_ssion..." Click="OnSaveSessionClick"/>
+                <Separator/>
+                <MenuItem Header="_Reload" InputGestureText="F5" Click="OnReload"/>
+                <MenuItem Header="Compare as _text" Click="OnOpenAsText"
+                          ToolTip="Open the same files in a text compare, for files that only look binary"/>
+                <Separator/>
+                <MenuItem Header="_Close tab" InputGestureText="Ctrl+W" Click="OnCloseTabClick"/>
+                <MenuItem Header="E_xit" Click="OnExitClick"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem x:Name="ThemeMenu" Header="_Theme"/>
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Explorer integration..." Click="OnShellIntegration"/>
+            </MenuItem>
+            <MenuItem Header="_About" Click="OnAbout"
+                      ToolTip="About File Compare: version, source code, changelog, license"/>
+        </Menu>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ToolBar Grid.Row="0" Background="{DynamicResource App.Surface}">
+                <Button Content="Home" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Home}"
+                        ToolTip="Home: recent comparisons and saved sessions" Click="OnHomeClick"/>
+                <Button Content="Sessions" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Sessions}"
+                        ToolTip="Save this comparison, or open a saved or recent one" Click="OnSessionsButtonClick"/>
+                <Separator/>
+                <Button Content="Next Section" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.NextSection}"
+                        ToolTip="Go to the next difference" Click="OnNextSection"/>
+                <Button Content="Prev Section" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.PrevSection}"
+                        ToolTip="Go to the previous difference" Click="OnPrevSection"/>
+                <Separator/>
+                <Button Content="Swap" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Swap}"
+                        ToolTip="Swap left and right" Click="OnSwap"/>
+                <Button Content="Reload" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Reload}"
+                        ToolTip="Read both files again (F5)" Click="OnReload"/>
+                <Separator/>
+                <Button x:Name="ThemeButton" Content="Theme" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Theme}"
+                        ToolTip="Choose a color theme" Click="OnThemeButtonClick">
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="ThemeButtonMenu"/>
+                    </Button.ContextMenu>
+                </Button>
+            </ToolBar>
+
+            <Grid Grid.Row="1" Margin="4,4,4,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    <Button DockPanel.Dock="Right" Content="..." Width="28" ToolTip="Choose a file" Click="OnBrowseLeft"/>
+                    <TextBox x:Name="LeftPath" Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"
+                             KeyDown="OnPathKeyDown" VerticalContentAlignment="Center" ToolTip="Left file. Type a path and press Enter, or drop a file here."/>
+                </DockPanel>
+                <DockPanel Grid.Column="2">
+                    <Button DockPanel.Dock="Right" Content="..." Width="28" ToolTip="Choose a file" Click="OnBrowseRight"/>
+                    <TextBox x:Name="RightPath" Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"
+                             KeyDown="OnPathKeyDown" VerticalContentAlignment="Center" ToolTip="Right file. Type a path and press Enter, or drop a file here."/>
+                </DockPanel>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="4,2,4,2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="LeftInfo" Grid.Column="0" Foreground="{DynamicResource App.TextSecondary}"/>
+                <TextBlock x:Name="RightInfo" Grid.Column="2" Foreground="{DynamicResource App.TextSecondary}"/>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <bin:HexView x:Name="View" MouseWheel="OnViewMouseWheel" AutomationProperties.Name="Hex view"/>
+                <ScrollBar x:Name="VerticalScroll" Grid.Column="1" Orientation="Vertical" SmallChange="1"
+                           ValueChanged="OnScrollValueChanged"/>
+            </Grid>
+
+            <StatusBar Grid.Row="4" Background="{DynamicResource App.Surface}">
+                <StatusBarItem><TextBlock x:Name="DiffCountText" Text="Ready"/></StatusBarItem>
+                <Separator/>
+                <StatusBarItem><TextBlock x:Name="SameText"/></StatusBarItem>
+                <Separator/>
+                <StatusBarItem><TextBlock x:Name="LoadTimeText"/></StatusBarItem>
+            </StatusBar>
+        </Grid>
+    </DockPanel>
+</tabs:PathComparePage>

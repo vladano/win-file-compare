@@ -1,0 +1,9 @@
+<Project>
+  <!-- Settings shared by every project in the solution. -->
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <!-- WPF0001: ThemeMode (Fluent theme) is marked experimental in .NET 9 but is the supported way to get it. -->
+    <NoWarn>$(NoWarn);WPF0001</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+</Project>

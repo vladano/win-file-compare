@@ -1,0 +1,16 @@
+<Window x:Class="FileCompare.App.Dialogs.InputDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{DynamicResource App.Background}" Foreground="{DynamicResource App.Text}">
+    <StackPanel Margin="18" Width="380">
+        <TextBlock x:Name="PromptText" TextWrapping="Wrap"/>
+        <TextBox x:Name="ValueBox" Margin="0,8,0,0"
+                 Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="OK" Width="84" IsDefault="True" Click="OnOk"/>
+            <Button Content="Cancel" Width="84" Margin="8,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

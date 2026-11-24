@@ -1,0 +1,128 @@
+<tabs:PathComparePage x:Class="FileCompare.App.ImageComparePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:tabs="clr-namespace:FileCompare.App.Tabs"
+        PreviewKeyDown="OnPageKeyDown">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="{DynamicResource App.Surface}">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New tab" InputGestureText="Ctrl+T" Click="OnNewTabClick"/>
+                <MenuItem Header="_Home" Click="OnHomeClick"/>
+                <MenuItem Header="Recen_t" SubmenuOpened="OnRecentMenuOpened">
+                    <MenuItem Header="(none yet)" IsEnabled="False"/>
+                </MenuItem>
+                <MenuItem Header="Save as se_ssion..." Click="OnSaveSessionClick"/>
+                <Separator/>
+                <MenuItem Header="_Reload" InputGestureText="F5" Click="OnReload"/>
+                <MenuItem Header="Compare as he_x" Click="OnOpenAsHex" ToolTip="Compare the bytes of the two files instead of their pixels"/>
+                <Separator/>
+                <MenuItem Header="_Close tab" InputGestureText="Ctrl+W" Click="OnCloseTabClick"/>
+                <MenuItem Header="E_xit" Click="OnExitClick"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem x:Name="ThemeMenu" Header="_Theme"/>
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Explorer integration..." Click="OnShellIntegration"/>
+            </MenuItem>
+            <MenuItem Header="_About" Click="OnAbout"
+                      ToolTip="About File Compare: version, source code, changelog, license"/>
+        </Menu>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ToolBar Grid.Row="0" Background="{DynamicResource App.Surface}">
+                <Button Content="Home" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Home}"
+                        ToolTip="Home: recent comparisons and saved sessions" Click="OnHomeClick"/>
+                <Button Content="Sessions" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Sessions}"
+                        ToolTip="Save this comparison, or open a saved or recent one" Click="OnSessionsButtonClick"/>
+                <Separator/>
+                <RadioButton x:Name="SideBySideButton" GroupName="ImageView" IsChecked="True" Content="Side by side"
+                             Style="{StaticResource IconRadioButton}" Tag="{StaticResource Icon.SideBySide}"
+                             ToolTip="Show both pictures next to each other" Checked="OnViewChanged"/>
+                <RadioButton x:Name="DifferenceButton" GroupName="ImageView" Content="Difference"
+                             Style="{StaticResource IconRadioButton}" Tag="{StaticResource Icon.Diffs}"
+                             ToolTip="Changed pixels in red, pixels on one side only in orange" Checked="OnViewChanged"/>
+                <Separator/>
+                <ToggleButton x:Name="FitToggle" IsChecked="True" Content="Fit" Style="{StaticResource IconToggleButton}"
+                              Tag="{StaticResource Icon.Fit}" ToolTip="Fit the pictures to the window (off: 100 %, scroll to see all)"
+                              Checked="OnZoomChanged" Unchecked="OnZoomChanged"/>
+                <Separator/>
+                <Button Content="Swap" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Swap}"
+                        ToolTip="Swap left and right" Click="OnSwap"/>
+                <Button Content="Reload" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Reload}"
+                        ToolTip="Read both pictures again (F5)" Click="OnReload"/>
+                <Separator/>
+                <Button x:Name="ThemeButton" Content="Theme" Style="{StaticResource IconButton}" Tag="{StaticResource Icon.Theme}"
+                        ToolTip="Choose a color theme" Click="OnThemeButtonClick">
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="ThemeButtonMenu"/>
+                    </Button.ContextMenu>
+                </Button>
+            </ToolBar>
+
+            <Grid Grid.Row="1" Margin="4,4,4,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    <Button DockPanel.Dock="Right" Content="..." Width="28" ToolTip="Choose a picture" Click="OnBrowseLeft"/>
+                    <TextBox x:Name="LeftPath" Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"
+                             KeyDown="OnPathKeyDown" VerticalContentAlignment="Center" ToolTip="Left picture. Type a path and press Enter, or drop a picture here."/>
+                </DockPanel>
+                <DockPanel Grid.Column="2">
+                    <Button DockPanel.Dock="Right" Content="..." Width="28" ToolTip="Choose a picture" Click="OnBrowseRight"/>
+                    <TextBox x:Name="RightPath" Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"
+                             KeyDown="OnPathKeyDown" VerticalContentAlignment="Center" ToolTip="Right picture. Type a path and press Enter, or drop a picture here."/>
+                </DockPanel>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="4,2,4,2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="LeftInfo" Grid.Column="0" Foreground="{DynamicResource App.TextSecondary}"/>
+                <TextBlock x:Name="RightInfo" Grid.Column="2" Foreground="{DynamicResource App.TextSecondary}"/>
+            </Grid>
+
+            <Grid Grid.Row="3" x:Name="ViewArea">
+                <Grid x:Name="SideBySidePanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="6"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer x:Name="LeftScroll" Grid.Column="0" ScrollChanged="OnSideScrollChanged">
+                        <Image x:Name="LeftImage" AutomationProperties.Name="Left picture"/>
+                    </ScrollViewer>
+                    <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch"/>
+                    <ScrollViewer x:Name="RightScroll" Grid.Column="2" ScrollChanged="OnSideScrollChanged">
+                        <Image x:Name="RightImage" AutomationProperties.Name="Right picture"/>
+                    </ScrollViewer>
+                </Grid>
+                <ScrollViewer x:Name="DifferenceScroll" Visibility="Collapsed">
+                    <Image x:Name="DifferenceImage" AutomationProperties.Name="Difference picture"/>
+                </ScrollViewer>
+            </Grid>
+
+            <StatusBar Grid.Row="4" Background="{DynamicResource App.Surface}">
+                <StatusBarItem><TextBlock x:Name="DiffCountText" Text="Ready"/></StatusBarItem>
+                <Separator/>
+                <StatusBarItem><TextBlock x:Name="SameText"/></StatusBarItem>
+                <Separator/>
+                <StatusBarItem><TextBlock x:Name="LoadTimeText"/></StatusBarItem>
+            </StatusBar>
+        </Grid>
+    </DockPanel>
+</tabs:PathComparePage>

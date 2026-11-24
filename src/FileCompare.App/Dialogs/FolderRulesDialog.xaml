@@ -1,0 +1,31 @@
+<Window x:Class="FileCompare.App.Dialogs.FolderRulesDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Folder rules" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{DynamicResource App.Background}" Foreground="{DynamicResource App.Text}">
+    <StackPanel Margin="18" MinWidth="420">
+        <TextBlock Text="Ignore these files and folders" FontWeight="SemiBold"/>
+        <TextBox x:Name="PatternsBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                 Height="140" Margin="0,8,0,0" FontFamily="Consolas"
+                 Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="One name per line. * and ? work, and case does not matter. Examples: .git, node_modules, *.tmp. The names are matched against every file and folder at any depth."/>
+
+        <TextBlock Text="Compare files by" FontWeight="SemiBold" Margin="0,18,0,0"/>
+        <ComboBox x:Name="ModeBox" DisplayMemberPath="Label" SelectedValuePath="Value" Margin="0,8,0,0"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="Content reads the files and is exact. Size and time is much faster on large folders, but a file that was only touched looks different."/>
+
+        <TextBlock Text="Files read at the same time" FontWeight="SemiBold" Margin="0,18,0,0"/>
+        <ComboBox x:Name="ParallelismBox" DisplayMemberPath="Label" SelectedValuePath="Value" Margin="0,8,0,0"
+                  AutomationProperties.Name="Files read at the same time"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="Automatic reads 4 files at once on SSDs and network drives, and 1 when both folders are on the same spinning disk (where reading several files at once is slower)."/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="OK" Width="84" IsDefault="True" Click="OnOk"/>
+            <Button Content="Cancel" Width="84" Margin="8,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

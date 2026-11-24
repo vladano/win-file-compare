@@ -1,0 +1,39 @@
+<Window x:Class="FileCompare.App.Dialogs.ShellIntegrationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Explorer integration" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{DynamicResource App.Background}" Foreground="{DynamicResource App.Text}">
+    <StackPanel Margin="18" Width="560">
+        <TextBlock Text="Right-click menu in File Explorer" FontWeight="SemiBold"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0"
+                   Text="Adds these entries when you right-click files and folders:"/>
+        <TextBlock Margin="12,6,0,0" TextWrapping="Wrap">
+            <Run FontWeight="SemiBold" Text="Select left side to compare"/><Run Text=": remembers the item."/><LineBreak/>
+            <Run FontWeight="SemiBold" Text="Compare to 'name'"/><Run Text=": appears once a left side is selected, and compares with it."/><LineBreak/>
+            <Run FontWeight="SemiBold" Text="Compare selected items"/><Run Text=": compares two selected files or folders."/>
+        </TextBlock>
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="On Windows 11 they are under &quot;Show more options&quot;. Only your user account is changed, and no administrator rights are needed."/>
+
+        <TextBlock Text="Status" FontWeight="SemiBold" Margin="0,16,0,0"/>
+        <TextBlock x:Name="StatusText" TextWrapping="Wrap" Margin="0,6,0,0"/>
+
+        <TextBlock Text="The entries start" FontWeight="SemiBold" Margin="0,16,0,0"/>
+        <TextBlock x:Name="ExeText" TextWrapping="Wrap" Margin="0,6,0,0" FontFamily="Consolas"/>
+        <TextBlock x:Name="WarningText" TextWrapping="Wrap" Margin="0,6,0,0" Foreground="{DynamicResource App.TextSecondary}"
+                   Text="This looks like a build or temporary folder. If the program moves or is rebuilt elsewhere, the menu entries stop working until you install again."/>
+
+        <Expander Header="Registry keys that are written" Margin="0,16,0,0">
+            <TextBox x:Name="KeysText" IsReadOnly="True" FontFamily="Consolas" FontSize="11" Height="120" Margin="0,6,0,0"
+                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" TextWrapping="NoWrap"
+                     Background="{DynamicResource App.Control}" BorderBrush="{DynamicResource App.Border}"/>
+        </Expander>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button x:Name="InstallButton" Content="Install" MinWidth="100" Click="OnInstall"/>
+            <Button x:Name="RemoveButton" Content="Remove" MinWidth="100" Margin="8,0,0,0" Click="OnRemove"/>
+            <Button Content="Close" MinWidth="84" Margin="8,0,0,0" IsCancel="True" IsDefault="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
