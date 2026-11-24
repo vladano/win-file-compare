@@ -5,6 +5,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-24
+
+First public release.
+
 ### Added
 - Text compare: side-by-side view with highlighted differences, filler lines, line numbers and synchronized scrolling.
 - Next/previous difference, swap sides, reload, ignore whitespace and ignore case.
